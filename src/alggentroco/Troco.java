@@ -1,6 +1,8 @@
 /*
  */
 package alggentroco;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Random;
 //import java.math.*;
 
@@ -10,6 +12,8 @@ import java.util.Random;
  */
 public class Troco {
 
+    
+    //Gets e Sets
     /**
      * @return the melhoresSelecoes
      */
@@ -106,8 +110,8 @@ public class Troco {
     private int [] melhoresSelecoes;//Guarda os melhores valores obtidos nos processos de seleção. É usado para a geração do gráfico.
     private int [] mediaMelhoresGeracoes;//Guarda a média de todos os valores por cada seleção. É usado para a geração do gráfico.
     private int [] cedulas;//Valores das cedulas Ex.: {1, 2, 5, 10, 20, 50, 100};
-    private double porcentagemmutacao;
-    private double porcentagemcrossover;
+    private double porcentagemmutacao;//Define a porcentagem usada na mutacao
+    private double porcentagemcrossover;//Define a porcentagem usada no crossover
     private int quantCromossomos;//Quantidade de cromossomos serão definidos para o algoritmo
     private int inicialAleatorio;//Controla os valores aleatorios que serão gerados
     private int geracoes;//Quantidade de gerações
@@ -135,7 +139,7 @@ public class Troco {
     
     public int[][] gerarPopInicial(){//Método para geração da população inicial
         //1; 2; 5; 10; 20; 50; 100;
-        int[][] popinicial = new int[this.quantCromossomos][7];
+        int[][] popinicial = new int[this.quantCromossomos][7];//População inicial = Cromossomos X Quantidade de Cédulas
         Random rand = new Random();
         for(int i = 0; i < this.quantCromossomos; i++){
             for(int j = 0; j < 7; j++){
@@ -162,40 +166,30 @@ public class Troco {
     }
     
     public int[][] gerarCrossover(int[][] popinicial){//Gera um novo conj. de cromossomos, a partir da op. de crossover
-        double valorcrossover = this.porcentagemcrossover/100;
+        double valorcrossover = this.porcentagemcrossover/100;//Cálculo de porcentagem
         
         int qtdgenes = (int)(Math.floor(valorcrossover*7));//Convertemos para inteiro
         System.out.println("Genes para crossover: " +qtdgenes);
         
-        int [][] crossover = new int [this.quantCromossomos][7];
+        int [][] crossover = new int [this.quantCromossomos][7];//Mesmas especificações da matriz de população inicial
         
         for(int i = 0; i < this.quantCromossomos; i++){
             for(int j = qtdgenes; j < 7; j++){
             
-                crossover[i][j] = popinicial[i][j];
-            
-            
-            
+                crossover[i][j] = popinicial[i][j];         
             }
         }
-        
-        
+     
         for(int i = 0; i < this.quantCromossomos; i++){
             for(int j = 0; j < qtdgenes; j++){
-                if(impar(i)){
+                if(impar(i)){//Efetuamos o Crossover assim
                   crossover[i][j] = popinicial[i-1][j];
                 
                 
                 
                 }else{
-                  crossover[i][j] = popinicial[i+1][j];
-                
-                
-                
-                }
-                
-            
-            
+                  crossover[i][j] = popinicial[i+1][j];         
+                }  
             }
         
         
@@ -212,57 +206,42 @@ public class Troco {
         double valormutacao = this.getPorcentagemmutacao()/100;
         int qtdgenes = (int)Math.floor(valormutacao*7);//Quantidade de genes à serem mutados
         System.out.println("Genes para mutacao: " +qtdgenes);
-        
-        
         Random rand = new Random();
-        int [][] mutacao = new int[this.quantCromossomos][7];
-        
+        int [][] mutacao = new int[this.quantCromossomos][7];   
         for(int i = 0; i < this.quantCromossomos; i++){//Cópia da população Inicial
-            for(int j = 0; j < 7; j++){
-            
+            for(int j = 0; j < 7; j++){   
                 mutacao[i][j] = popinicial[i][j];
-            
-            
-            
             }
         }
-        
         //this.imprimeMat(mutacao);
-        
         int i = 0;
         while(i<this.quantCromossomos){
             int contgenes = qtdgenes;
-            int [] controleGenes = {0, 0, 0, 0, 0, 0, 0};
-                    
-                    
-                    
-                    
+            int [] controleGenes = {0, 0, 0, 0, 0, 0, 0};   
             while(contgenes > 0){
                 int alteragene = rand.nextInt(this.getInicialAleatorio());//Valores entre 1 e 10
                 int geneaalterar = rand.nextInt(6);
-                
                 if(controleGenes[geneaalterar] == 1){//Significa que tal gene já foi alterado...
                     int genealternativo = 0;//Trabalhamos com outra alternativa
-                    while(controleGenes[genealternativo] == 1 && genealternativo < 7){
+                    while(controleGenes[genealternativo] == 1 && genealternativo < 7){//Encontra a alternativa 
                         genealternativo++;
-                    
+                        if(genealternativo == 7){
+                            genealternativo--;
+                            while(controleGenes[genealternativo] == 1 && genealternativo >= 0){//Indo para ambos os "lados"
+                                genealternativo--;
+                            }
+                        }
                     }
                     geneaalterar = genealternativo; // Acha um qualquer ue ainda esteja sem alterar
                 }
                 
                 controleGenes[geneaalterar] = 1;//Marcamos como já alterado
                 // gene - aleatorio/geneaalterar - Alteramos isto aqui pra aleatorizar melhor
-                mutacao[i][geneaalterar] = alteragene / (this.cedulas[geneaalterar]);///mutacao[i][geneaalterar] + alteragene
-                
-                contgenes--;
-                
-                
+                mutacao[i][geneaalterar] = alteragene / (this.cedulas[geneaalterar]);///mutacao[i][geneaalterar] + alteragene     
+                contgenes--;    
             }
             i++;
         }
-    
-    
-    
         return mutacao;
     
     }
@@ -270,7 +249,7 @@ public class Troco {
     public int [][] joinMatrizes(int [][] popinicial, int[][] crossover, int [][] mutacao){//Retorna uma matriz 12x7 com todo mundo junto
         int [][] matAvaliacao = new int [(this.quantCromossomos*3)][7];
         for(int i = 0; i<this.quantCromossomos; i++){//Se liga na mágica
-            for(int j = 0; j<7; j++){
+            for(int j = 0; j<7; j++){//Junta as 3 para trabalho
                 matAvaliacao[i][j] = popinicial[i][j];
                 matAvaliacao[i+this.quantCromossomos][j] = crossover[i][j];
                 matAvaliacao[i+(this.quantCromossomos*2)][j] = mutacao [i][j];
@@ -334,14 +313,35 @@ public class Troco {
             }
         
         }
-        System.out.println("Escolhidos: ");
+        System.out.println("\nEscolhidos: ");
         imprimirVetSelecaoFim(valorselecaofim);
+        
         int [][] selecao = constroiSelecao(matAvaliacao, valorselecaofim);//Saída final, será considerada a população inicial da próxima geração
-        System.out.println("Seleção: ");
+        System.out.println("\nSeleção: ");
         imprimeMat(selecao);//imprimirVetSelecaoSaida(selecao);
         
+        System.out.println("\nSeleção com Fitness: ");
+        imprimirSelecaoEFitness(valorselecaofim, selecao);
         
         return selecao;
+    
+    }
+    
+    public void imprimirSelecaoEFitness(int [][] valorselecaofim, int [][] selecao){
+        for(int i = 0; i < this.quantCromossomos; i++){
+            System.out.print("Fitness: " + valorselecaofim[i][0] + " | Cromossomos: ");
+            for(int j = 0; j < 7; j++){
+                System.out.print("["+selecao[i][j]+"]");
+            
+            
+            
+            
+            }
+            System.out.println();
+        
+        }
+    
+    
     
     }
     
@@ -360,12 +360,12 @@ public class Troco {
     }
     
     public void heurPorcentagemMutacao(int ger){//Pela geração, define qual será a porcentagem de mutação. É uma heurística
-            if(ger > 5){
+            if(ger > 5){//Mais de 5 gerações
                 this.setPorcentagemmutacao(Math.abs(this.getPorcentagemmutacao()/1.5));
             
             
             }
-            if(ger > 10){
+            if(ger > 10){//Mais de 10 gerações
                 this.setPorcentagemmutacao(Math.abs(this.getPorcentagemmutacao()/2.5));
             
             
@@ -383,7 +383,7 @@ public class Troco {
     
     }//Caso o usuário não use esta heurística, a quantidade de gerações será a especificiada por ele na interface gráfica
     
-    public int geraMedia(int [][] selecao){//Calcula média dos valores selecionados em matriz
+    public int geraMedia(int [][] selecao){//Calcula média dos valores selecionados em matriz (media = somadetodos/quantidade)
         int aux = 0;//Armazenará nossa soma
         for(int i = 0; i < this.quantCromossomos; i++){
             for(int j = 0; j< this.cedulas.length; j++){//Aqui
@@ -398,7 +398,7 @@ public class Troco {
     
     }
     
-    public void preparacaoGrafico(int ger, int [][] teste){
+    public void preparacaoGrafico(int ger, int [][] teste){//Prepara para a criação do gráfico após execução
         if(ger == 0){//Somente para a primeira geração
             this.setMediaMelhoresGeracoes(new int [this.geracoes]);//Inicia com a quantidade de gerações. Para cada geração, irá armazenar a entre os resultados selecionados.
             this.setMelhoresSelecoes(new int [this.geracoes]);//Inicia com a quantidade de gerações. Armazena o melhor valor de cada geração.
@@ -413,7 +413,7 @@ public class Troco {
     }
     
     
-    public void driver(){//Construir todo o processo aqui!
+    public void driver(){//Construir todo o processo aqui!//Driver é aonde todo o processo ocorre.
         //this.setValortrocoT(55);//Teste
         //this.inicialAleatorio = 55;
         //this.setGeracoes((int) (Math.log(this.getValortrocoT()) / Math.log(2)));
@@ -456,6 +456,10 @@ public class Troco {
         valoresFinaisTroco(teste);
         imprimirNotaseValores(teste);
         this.setSaídasV(teste);//Grava a saída e a resolução encontrada
+        
+        this.gerarCSVMelhoresGer();
+        this.gerarCSVMelhoresMed();
+        
         for(int i = 0; i < 8; i++ ){
             System.out.print(this.saidasV[i]+ " ");
         
@@ -463,7 +467,7 @@ public class Troco {
         }
     }
     
-    public void setSaídasV(int [][] saidasV){
+    public void setSaídasV(int [][] saidasV){//Constroi a saída para o atributo
         for(int i = 0; i < this.saidasV.length-1; i++){
             this.saidasV[i] = saidasV[0][i]; 
         
@@ -619,6 +623,48 @@ public class Troco {
         
         }
         System.out.println("----------");
+    
+    
+    
+    
+    }
+    
+    public void gerarCSVMelhoresMed(){//Gerar um .csv contendo os valores das médias dos valores selecionados por cada geração
+        File file = new File("melhoresmedias.csv");
+        try{
+            FileWriter f1 = new FileWriter(file);
+            
+            for(int i = 0; i < this.mediaMelhoresGeracoes.length; i++){
+                f1.write((i+1)+";"+mediaMelhoresGeracoes[i]+";\n");
+            
+            
+            
+            }
+            f1.flush();
+            f1.close();
+        
+        }catch(Exception e){
+        
+        }
+    }
+    
+    public void gerarCSVMelhoresGer(){//Gerar um .csv com os melhores de cada geração
+        File file = new File("melhores.csv");
+        try{
+            FileWriter f1 = new FileWriter(file);
+            
+            for(int i = 0; i < this.melhoresSelecoes.length; i++){
+                f1.write((i+1)+";"+melhoresSelecoes[i]+";\n");
+            
+            
+            
+            }
+            f1.flush();
+            f1.close();
+        
+        }catch(Exception e){
+        
+        }
     
     
     

@@ -65,6 +65,7 @@ public class TelaTroco extends javax.swing.JFrame {
         jLBAleat = new javax.swing.JLabel();
         jBtnGraficoMelhoresCrm = new javax.swing.JButton();
         jLBTituloE = new javax.swing.JLabel();
+        jBTLimpezaSaida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,22 +141,22 @@ public class TelaTroco extends javax.swing.JFrame {
 
         jLBTituloE.setText("Entradas do Problema");
 
+        jBTLimpezaSaida.setText("Limpar Saída");
+        jBTLimpezaSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTLimpezaSaidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLBTituloS)
-                .addGap(128, 128, 128))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(282, 282, 282)
-                                .addComponent(jLBMain))
                             .addComponent(jLBPrcCross)
                             .addComponent(jLBPrcMut)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -186,27 +187,34 @@ public class TelaTroco extends javax.swing.JFrame {
                         .addComponent(jTFValorTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jBtnExec))
+                        .addComponent(jBtnExec)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBTLimpezaSaida))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLBNumGer))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLBValorTroco)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLBValorTroco))
+                    .addComponent(jLBAleat)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTFAleatInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnGraficoMelhoresCrm)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLBTituloS)
+                        .addGap(191, 191, 191))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnGraficoMelhoresCrm)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTFAleatInicial)
-                        .addGap(586, 586, 586))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLBAleat)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(388, 388, 388)
+                .addComponent(jLBMain)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +226,7 @@ public class TelaTroco extends javax.swing.JFrame {
                     .addComponent(jLBTituloS)
                     .addComponent(jLBTituloE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLBValorTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,19 +251,21 @@ public class TelaTroco extends javax.swing.JFrame {
                         .addComponent(jLBQuantCromossomos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTFQuantCromossomos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
                         .addComponent(jLBNumGer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFNumGeracoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTFNumGeracoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLBAleat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFAleatInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 206, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLBAleat)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFAleatInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnGraficoMelhoresCrm))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jBtnExec)
+                    .addComponent(jBtnExec)
+                    .addComponent(jBtnGraficoMelhoresCrm)
+                    .addComponent(jBTLimpezaSaida))
                 .addGap(40, 40, 40))
         );
 
@@ -311,6 +321,20 @@ public class TelaTroco extends javax.swing.JFrame {
         GraficoAGTroco a1 = new GraficoAGTroco("Gráfico de Resultados", this.t1.getMediaMelhoresGeracoes(), this.t1.getMelhoresSelecoes(), this.t1.getValortrocoT());
         a1.constroiGrafico(this.t1.getMediaMelhoresGeracoes(), this.t1.getMelhoresSelecoes(), this.t1.getValortrocoT());
     }//GEN-LAST:event_jBtnGraficoMelhoresCrmActionPerformed
+
+    private void jBTLimpezaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTLimpezaSaidaActionPerformed
+        // TODO add your handling code here:
+        this.baos.reset();
+        this.ps.flush();
+        baos = new ByteArrayOutputStream();
+        ps = new PrintStream(baos);
+        System.setOut(ps);
+        this.jTextArea1.setText("");
+        /*System.out.print("\033[H\033[2J");  
+        System.out.flush();
+        
+        System.out.print(" Pato");*/
+    }//GEN-LAST:event_jBTLimpezaSaidaActionPerformed
 
     public void criarCapturadeTexto(){
         baos = new ByteArrayOutputStream();
@@ -397,6 +421,7 @@ public class TelaTroco extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBTLimpezaSaida;
     private javax.swing.JButton jBtnExec;
     private javax.swing.JButton jBtnGraficoMelhoresCrm;
     private javax.swing.JLabel jLBAleat;
