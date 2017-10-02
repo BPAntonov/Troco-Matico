@@ -92,7 +92,7 @@ public class TelaTroco extends javax.swing.JFrame {
 
         jLBPrcCross.setText("Porcentagem Crossover");
 
-        jLBQuantCromossomos.setText("Quantidade de Cromossomos");
+        jLBQuantCromossomos.setText("Quantidade de Cromossomos (Par)");
 
         jTFPorcentagemCross.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -196,10 +196,12 @@ public class TelaTroco extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLBValorTroco))
-                    .addComponent(jLBAleat)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTFAleatInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTFAleatInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLBAleat)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -262,10 +264,11 @@ public class TelaTroco extends javax.swing.JFrame {
                         .addGap(0, 206, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnExec)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnGraficoMelhoresCrm)
-                    .addComponent(jBTLimpezaSaida))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtnExec)
+                        .addComponent(jBTLimpezaSaida)))
                 .addGap(40, 40, 40))
         );
 

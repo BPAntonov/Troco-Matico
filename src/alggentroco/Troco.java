@@ -143,8 +143,11 @@ public class Troco {
         Random rand = new Random();
         for(int i = 0; i < this.quantCromossomos; i++){
             for(int j = 0; j < 7; j++){
-                int aleatoriointeiro = rand.nextInt(this.getInicialAleatorio());//int aleatoriointeiro = rand.nextInt(this.getInicialAleatorio() + this.getInicialAleatorio()/10);
-                popinicial[i][j] = (aleatoriointeiro / Math.abs((this.cedulas[j])));//Para aleatorizar melhor //(aleatoriointeiro / Math.abs((this.cedulas[j])))
+                //System.out.println(j);
+                int tempint = Math.abs(this.getInicialAleatorio()/(this.cedulas[j]))+1;//Melhorou um pouco a precisão
+                //System.out.println(tempint);
+                int aleatoriointeiro = rand.nextInt(tempint);//int aleatoriointeiro = rand.nextInt(this.getInicialAleatorio() + this.getInicialAleatorio()/10);
+                popinicial[i][j] = (aleatoriointeiro);//Para aleatorizar melhor //(aleatoriointeiro / Math.abs((this.cedulas[j])))
                 //System.out.println(aleatoriointeiro);
             }
         }
@@ -165,7 +168,7 @@ public class Troco {
     
     }
     
-    public int[][] gerarCrossover(int[][] popinicial){//Gera um novo conj. de cromossomos, a partir da op. de crossover
+    public int[][] gerarCrossover(int[][] popinicial){//Gera um novo conj. de cromossomos, a partir da op. de crossover. Implementa o crossover de 1 ponto
         double valorcrossover = this.porcentagemcrossover/100;//Cálculo de porcentagem
         
         int qtdgenes = (int)(Math.floor(valorcrossover*7));//Convertemos para inteiro

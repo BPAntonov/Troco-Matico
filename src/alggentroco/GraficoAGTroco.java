@@ -48,7 +48,8 @@ public class GraficoAGTroco extends JFrame{
         renderer.setSeriesStroke( 1 , new BasicStroke( 4.0f ) );
         
         renderer.setSeriesPaint( 2 , Color.GREEN );
-        renderer.setSeriesStroke( 2 , new BasicStroke( 8.0f ) );
+        renderer.setSeriesStroke( 2 , new BasicStroke( 4.0f ) );
+        //renderer.setSeriesShapesVisible(2, true);
         
         plot.setBackgroundPaint(Color.DARK_GRAY);
         plot.setRenderer(renderer);
